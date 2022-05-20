@@ -62,12 +62,13 @@ architecture Behavioral of VGA_main is
 	 signal HCntparsetemp: integer:= 0;
 	 
 begin
-	 
+	-- Clock Divider  for 4ps
     CV0 : clock_divider port map (
         clk     => clk,
         rst    =>rst1,
         clock_out    =>clk_25MHz
         );
+	-- Map for VGA_Timming
     VT0 : VGA_timing port map (
         clk     => clk_25MHz,
         rst    =>rst1,
@@ -77,35 +78,35 @@ begin
 		  HCntparse => HCntparsetemp
         );
 		  
-	 Redtemp    <= "111" when Video = '1' and HCntparsetemp <= 80 else
-						"000" when Video = '1' and (HCntparsetemp > 80 and HCntparsetemp <= 160) else
-						"000" when Video = '1' and (HCntparsetemp > 160 and HCntparsetemp <= 240) else
-						"000" when Video = '1' and (HCntparsetemp > 240 and HCntparsetemp <= 320) else
-						"111" when Video = '1' and (HCntparsetemp > 320 and HCntparsetemp <= 400) else
-						"111" when Video = '1' and (HCntparsetemp > 400 and HCntparsetemp <= 480) else
-						"000" when Video = '1' and (HCntparsetemp > 480 and HCntparsetemp <= 560) else
-						"111" when Video = '1' and (HCntparsetemp > 560 and HCntparsetemp <= 640) else
+	 Redtemp    <= "111" when Video = '1' and HCntparsetemp <= 80 else -- Fisrt columne, red color red
+						"000" when Video = '1' and (HCntparsetemp > 80 and HCntparsetemp <= 160) else -- Seconde columne, red color green 
+						"000" when Video = '1' and (HCntparsetemp > 160 and HCntparsetemp <= 240) else -- Third columne, red color Blue
+						"000" when Video = '1' and (HCntparsetemp > 240 and HCntparsetemp <= 320) else-- Forth columne, red color Black
+						"111" when Video = '1' and (HCntparsetemp > 320 and HCntparsetemp <= 400) else-- fifth columne, red color white
+						"111" when Video = '1' and (HCntparsetemp > 400 and HCntparsetemp <= 480) else -- sixth columne, red color yellow
+						"000" when Video = '1' and (HCntparsetemp > 480 and HCntparsetemp <= 560) else-- seventh columne, red color cyan
+						"111" when Video = '1' and (HCntparsetemp > 560 and HCntparsetemp <= 640) else -- hiehth columne, red color maganta
 						"000";
 						
 						
-	Greentemp    <= "000" when Video = '1' and HCntparsetemp <= 80 else
-						"111" when Video = '1' and (HCntparsetemp > 80 and HCntparsetemp <= 160) else
-						"000" when Video = '1' and (HCntparsetemp > 160 and HCntparsetemp <= 240) else
-						"000" when Video = '1' and (HCntparsetemp > 240 and HCntparsetemp <= 320) else
-						"111" when Video = '1' and (HCntparsetemp > 320 and HCntparsetemp <= 400) else
-						"111" when Video = '1' and (HCntparsetemp > 400 and HCntparsetemp <= 480) else
-						"111" when Video = '1' and (HCntparsetemp > 480 and HCntparsetemp <= 560) else
-						"000" when Video = '1' and (HCntparsetemp > 560 and HCntparsetemp <= 640) else
+	Greentemp    <= "000" when Video = '1' and HCntparsetemp <= 80 else -- Fisrt columne, red color red
+						"111" when Video = '1' and (HCntparsetemp > 80 and HCntparsetemp <= 160) else-- Seconde columne, red color green
+						"000" when Video = '1' and (HCntparsetemp > 160 and HCntparsetemp <= 240) else-- Third columne, red color Blue
+						"000" when Video = '1' and (HCntparsetemp > 240 and HCntparsetemp <= 320) else-- Forth columne, red color Black
+						"111" when Video = '1' and (HCntparsetemp > 320 and HCntparsetemp <= 400) else-- fifth columne, red color white
+						"111" when Video = '1' and (HCntparsetemp > 400 and HCntparsetemp <= 480) else -- sixth columne, red color yellow
+						"111" when Video = '1' and (HCntparsetemp > 480 and HCntparsetemp <= 560) else-- seventh columne, red color cyan
+						"000" when Video = '1' and (HCntparsetemp > 560 and HCntparsetemp <= 640) else-- hiehth columne, red color maganta
 						"000";
-						
-	Bluetemp    <= "00" when Video = '1' and HCntparsetemp <= 80 else
-						"00" when Video = '1' and (HCntparsetemp > 80 and HCntparsetemp <= 160) else
-						"11" when Video = '1' and (HCntparsetemp > 160 and HCntparsetemp <= 240) else
-						"00" when Video = '1' and (HCntparsetemp > 240 and HCntparsetemp <= 320) else
-						"11" when Video = '1' and (HCntparsetemp > 320 and HCntparsetemp <= 400) else
-						"00" when Video = '1' and (HCntparsetemp > 400 and HCntparsetemp <= 480) else
-						"11" when Video = '1' and (HCntparsetemp > 480 and HCntparsetemp <= 560) else
-						"11" when Video = '1' and (HCntparsetemp > 560 and HCntparsetemp <= 640) else
+						 
+	Bluetemp    <= "00" when Video = '1' and HCntparsetemp <= 80 else -- Fisrt columne, red color red
+						"00" when Video = '1' and (HCntparsetemp > 80 and HCntparsetemp <= 160) else-- Seconde columne, red color green
+						"11" when Video = '1' and (HCntparsetemp > 160 and HCntparsetemp <= 240) else-- Third columne, red color Blue
+						"00" when Video = '1' and (HCntparsetemp > 240 and HCntparsetemp <= 320) else-- Forth columne, red color Black
+						"11" when Video = '1' and (HCntparsetemp > 320 and HCntparsetemp <= 400) else-- fifth columne, red color white
+						"00" when Video = '1' and (HCntparsetemp > 400 and HCntparsetemp <= 480) else -- sixth columne, red color yellow
+						"11" when Video = '1' and (HCntparsetemp > 480 and HCntparsetemp <= 560) else-- seventh columne, red color cyan
+						"11" when Video = '1' and (HCntparsetemp > 560 and HCntparsetemp <= 640) else -- hiehth columne, red color maganta
 						"00";
 	 
 	 
